@@ -430,17 +430,25 @@ export default function Home() {
               <PerformanceGraph />
             </div>
 
-            <div className="stats-grid-premium" style={{ marginBottom: "5rem" }}>
+            <div className="stats-bento-grid" style={{ marginBottom: "5rem" }}>
               {[
-                { num: "20+", lbl: "Years of Excellence", icon: <Award size={20} /> },
-                { num: "100+", lbl: "Medical Devices", icon: <Activity size={20} /> },
-                { num: "45+", lbl: "Export Countries", icon: <Globe size={20} /> },
-                { num: "1M+", lbl: "Units / Month", icon: <Zap size={20} /> },
+                { num: "1M+", lbl: "Units / Month", icon: <Zap size={24} />, grid: "card1", sub: "High-precision manufacturing at global scale." },
+                { num: "45+", lbl: "Export Countries", icon: <Globe size={24} />, grid: "card2", sub: "Trusted in 45+ nations." },
+                { num: "20+", lbl: "Years Excellence", icon: <Award size={24} />, grid: "card3", sub: "Since 2004." },
+                { num: "100+", lbl: "Devices", icon: <Activity size={24} />, grid: "card4", sub: "Complete medical portfolio." },
               ].map((s, i) => (
-                <motion.div key={s.lbl} className="stat-box" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                  <div style={{ color: "var(--sky-500)", marginBottom: "0.5rem" }}>{s.icon}</div>
-                  <span className="stat-num">{s.num}</span>
-                  <span className="stat-label">{s.lbl}</span>
+                <motion.div 
+                  key={s.lbl} 
+                  className={`bento-stat-card ${s.grid}`}
+                  initial={{ opacity: 0, scale: 0.9 }} 
+                  whileInView={{ opacity: 1, scale: 1 }} 
+                  viewport={{ once: true }} 
+                  transition={{ delay: i * 0.1, type: "spring", damping: 20 }}
+                >
+                  <div className="bento-icon-orb">{s.icon}</div>
+                  <div className="bento-number">{s.num}</div>
+                  <div className="bento-label">{s.lbl}</div>
+                  <div style={{ fontSize: "0.8rem", color: "var(--gray-400)", marginTop: "0.5rem" }}>{s.sub}</div>
                 </motion.div>
               ))}
             </div>
@@ -764,11 +772,11 @@ export default function Home() {
               </div>
               <div className="news-events-row">
                 {[
-                  { title: "MedTech Asia 2024", desc: "Showcasing our latest urology innovations at the premier healthcare exhibition in Bangkok.", date: "MAR 2024", tag: "Exhibition", img: "/images/event-medtech.png" },
-                  { title: "Clean Room Expansion", desc: "Completed commissioning of our new Class 10,000 packing facility ahead of schedule.", date: "FEB 2024", tag: "Facility", img: "/images/event-cleanroom.png" },
-                  { title: "Global Partner Meet", desc: "Hosting distributors from 20+ countries at our corporate headquarters in India.", date: "JAN 2024", tag: "Global", img: "/images/event-partners.png" },
+                  { title: "MedTech Asia 2024", desc: "Showcasing our latest urology innovations at the premier healthcare exhibition in Bangkok. Demonstrating precision-engineered catheters to global clinicians.", date: "MAR 2024", tag: "Exhibition", img: "/images/event-medtech.png" },
+                  { title: "Clean Room Expansion", desc: "Completed commissioning of our new Class 10,000 packing facility. This expansion triples our daily production capacity for sterile devices.", date: "FEB 2024", tag: "Facility", img: "/images/event-cleanroom.png" },
+                  { title: "Global Partner Meet", desc: "Hosting distributors from 20+ countries at our corporate headquarters. Fostering innovation partnerships for next-gen medical solutions.", date: "JAN 2024", tag: "Global", img: "/images/event-partners.png" },
                 ].map((ev, i) => (
-                  <motion.div key={ev.title} className="event-card-nextgen" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
+                  <motion.div key={ev.title} className="event-card-nextgen" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                     <div className="event-img-wrap">
                       <img src={ev.img} alt={ev.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       <div className="event-glass-badge">{ev.date}</div>
@@ -777,6 +785,9 @@ export default function Home() {
                       <span className="event-tag-premium">{ev.tag}</span>
                       <h4 className="event-title-h4">{ev.title}</h4>
                       <p className="event-desc-p">{ev.desc}</p>
+                      <button className="btn-event-more">
+                        Know More <ChevronRight size={16} />
+                      </button>
                     </div>
                   </motion.div>
                 ))}
