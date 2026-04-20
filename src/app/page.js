@@ -582,7 +582,8 @@ export default function Home() {
                 { src: "/images/auth/iso-3ec.png", alt: "3EC Certified" },
                 { src: "/images/auth/iso-9001.png", alt: "ISO 9001" },
                 { src: "/images/auth/iso-13485.png", alt: "ISO 13485" },
-                { src: "/images/auth/ce.svg", alt: "CE Mark" },
+                { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Conformit%C3%A9_Europ%C3%A9enne_%28logo%29.svg/800px-Conformit%C3%A9_Europ%C3%A9enne_%28logo%29.svg.png", alt: "CE Mark" },
+                { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Recycle001.svg/800px-Recycle001.svg.png", alt: "Recyclable" },
               ].map((logo, i) => (
                 <div key={i} className="auth-logo-item">
                   <img src={logo.src} alt={logo.alt} className="auth-logo-medium" />
@@ -813,79 +814,6 @@ export default function Home() {
               </motion.div>
             </div>
 
-            {/* 3. LATEST NEWS (Simple Progressive Card) */}
-            <div className="simple-media-hub" id="full-news">
-              <div className="article-card-lite">
-                {/* Teaser Section */}
-                <div className="card-teaser-header">
-                  <span className="teaser-label">Company Narrative</span>
-                  <h3 className="teaser-title">
-                    Engineering Confidence <br/> 
-                    for Global Healthcare
-                  </h3>
-                  
-                  <button 
-                    className="btn-know-more" 
-                    onClick={() => setIsNewsExpanded(!isNewsExpanded)}
-                  >
-                    {isNewsExpanded ? "Show Less" : "Know More"}
-                    <ChevronRight 
-                      size={20} 
-                      style={{ 
-                        transform: isNewsExpanded ? "rotate(-90deg)" : "rotate(0deg)", 
-                        transition: "transform 0.4s" 
-                      }} 
-                    />
-                  </button>
-                </div>
-
-                {/* Expanded Information */}
-                <AnimatePresence>
-                  {isNewsExpanded && (
-                    <motion.div 
-                      className="reveal-content-box"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                      style={{ overflow: "hidden" }}
-                    >
-                      <div className="reveal-inner">
-                        <div className="reveal-grid">
-                          {/* Story */}
-                          <div className="reveal-story">
-                            <p className="reveal-story-text">
-                              For over two decades, Mr Nirmal has sculpted an organization that stands at the intersection of medical engineering and human clinical needs. 
-                              Starting with a modest range of 6 products, the journey has been one of relentless pursuit. 
-                              Today, with over 94 variations, the impact is felt across 45+ countries.
-                            </p>
-                            <p className="reveal-story-text" style={{ marginTop: "1.5rem", fontStyle: "italic", color: "var(--gray-900)", fontWeight: 600 }}>
-                              &quot;Our commitment isn&apos;t just to manufacture devices; it&apos;s to engineer confidence for every surgeon.&quot;
-                            </p>
-                          </div>
-
-                          {/* Snapshot Stats */}
-                          <div className="reveal-stats-list">
-                            <div className="reveal-stat-item">
-                              <div className="reveal-stat-val">45+</div>
-                              <div className="reveal-stat-label">Export Countries</div>
-                            </div>
-                            <div className="reveal-stat-item">
-                              <div className="reveal-stat-val">94+</div>
-                              <div className="reveal-stat-label">Product Variations</div>
-                            </div>
-                            <div className="reveal-stat-item">
-                              <div className="reveal-stat-val">20+</div>
-                              <div className="reveal-stat-label">Years of Excellence</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -1004,7 +932,8 @@ export default function Home() {
                   { src: "/images/auth/iso-3ec.png", alt: "3EC" },
                   { src: "/images/auth/iso-9001.png", alt: "ISO 9001" },
                   { src: "/images/auth/iso-13485.png", alt: "ISO 13485" },
-                  { src: "/images/auth/ce.svg", alt: "CE" },
+                  { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Conformit%C3%A9_Europ%C3%A9enne_%28logo%29.svg/800px-Conformit%C3%A9_Europ%C3%A9enne_%28logo%29.svg.png", alt: "CE" },
+                  { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Recycle001.svg/800px-Recycle001.svg.png", alt: "Recycle" },
                 ].map((logo, i) => (
                   <div key={i} className="auth-logo-item">
                     <img src={logo.src} alt={logo.alt} className="auth-logo-small" />
