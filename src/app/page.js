@@ -162,6 +162,16 @@ export default function Home() {
   const heroY = useTransform(scrollYProgress, [0, 0.25], [0, 120]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
+  const growthScrollRef = useRef(null);
+  const [growthProgress, setGrowthProgress] = useState(0);
+
+  const handleGrowthScroll = () => {
+    if (!growthScrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = growthScrollRef.current;
+    const scrollPercent = (scrollLeft / (scrollWidth - clientWidth)) * 100;
+    setGrowthProgress(scrollPercent);
+  };
+
   const specialties = [
     {
       title: "Urology", tagline: "Access · Dilation · Drainage",
@@ -201,7 +211,7 @@ export default function Home() {
 
   return (
     <>
-      {/* ═══ NAVBAR ═══════════════════════════════════ */}
+      {/* === NAVBAR === */}
       <nav className={`navbar ${navScrolled ? "scrolled" : ""}`}>
         <div className="navbar-inner">
           {/* Logo */}
@@ -245,7 +255,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* ═══ HERO ════════════════════════════════════ */}
+      {/* === HERO === */}
       <section className="hero-section">
         <div className="hero-bg-gradient" />
         <div className="hero-grid" />
@@ -323,7 +333,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ FEATURED PRODUCTS SCROLLER ══════════════ */}
+      {/* === FEATURED PRODUCTS SCROLLER === */}
       <section className="featured-section section-pad-sm">
         <div className="container">
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem" }}>
@@ -357,7 +367,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ SPECIALTIES ═════════════════════════════ */}
+      {/* === SPECIALTIES === */}
       <section id="specialties" className="specialties-section section-pad">
         <div className="container">
           <motion.div className="text-center" style={{ marginBottom: "4rem" }} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -393,7 +403,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ STATS + FEATURES ════════════════════════ */}
+      {/* === STATS + FEATURES === */}
       <section className="stats-section section-pad">
         <div className="container">
           {/* Stats */}
@@ -438,7 +448,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ ABOUT / COMPANY ════════════════════════ */}
+      {/* === ABOUT / COMPANY === */}
       <section id="company" className="about-section section-pad">
         <div className="container">
           <motion.div className="text-center" style={{ marginBottom: "4rem" }} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -487,59 +497,51 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <motion.div className="timeline-section-v2" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-            <h3 className="timeline-section-title" style={{ color: "var(--gray-900)", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: "5rem", fontSize: "2rem" }}>
-              <History size={28} color="var(--sky-600)" /> Our Growth Story
+          {/* ═══ OUR GROWTH STORY (Horizontal Slider) ═══ */}
+          <motion.div className="growth-slider-wrapper" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+            <h3 className="section-title text-center" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 15, marginBottom: "4rem" }}>
+              <History size={32} color="var(--sky-600)" /> Our Growth Journey
             </h3>
-            
-            <div className="timeline-v2-container">
-              {/* Central Energy Line */}
-              <div className="timeline-v2-line-central">
+
+            {/* Progress Bar Above */}
+            <div className="growth-progress-container">
+              <div className="growth-progress-fill" style={{ width: `${growthProgress}%` }} />
+            </div>
+
+            {/* Horizontal Scroll Row */}
+            <div className="growth-scroll-row" ref={growthScrollRef} onScroll={handleGrowthScroll}>
+              {timeline.map((t, i) => (
                 <motion.div 
-                  className="timeline-v2-line-progress"
-                  style={{ height: useTransform(scrollYProgress, [0.4, 0.6], ["0%", "100%"]) }}
-                />
-              </div>
-
-              <div className="timeline-v2-items">
-                {timeline.map((t, i) => (
-                  <motion.div 
-                    key={t.year} 
-                    className={`timeline-v2-item ${t.side}`}
-                    initial={{ opacity: 0, x: t.side === 'left' ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, delay: i * 0.1 }}
-                  >
-                    <div className="timeline-v2-item-inner">
-                      {/* Card Content */}
-                      <div className="timeline-v2-content-wrap">
-                        <div className="timeline-v2-card-premium">
-                          {t.image && (
-                            <div className="timeline-v2-img-container">
-                              <img src={t.image} alt={t.title} />
-                            </div>
-                          )}
-                          <div className="timeline-v2-year-label">{t.year}</div>
-                          <h4 className="timeline-v2-title" style={{ marginTop: "0.5rem" }}>{t.title}</h4>
-                          <p className="timeline-v2-desc">{t.desc}</p>
-                        </div>
-                      </div>
-
-                      {/* Marker */}
-                      <div className="timeline-v2-marker-col">
-                        <div className="timeline-v2-marker-center">
-                          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "var(--sky-500)" }} />
-                        </div>
-                      </div>
+                  key={t.year} 
+                  className="growth-card-premium"
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "0px" }}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                >
+                  <div className="growth-year-backdrop">{t.year}</div>
+                  <div className="growth-year-indicator">{t.year}</div>
+                  
+                  {t.image && (
+                    <div className="growth-card-img-box">
+                      <img src={t.image} alt={t.title} loading="lazy" />
                     </div>
-                  </motion.div>
-                ))}
-              </div>
+                  )}
+                  
+                  <h4 className="growth-title-h4">{t.title}</h4>
+                  <p className="growth-desc-p">{t.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="text-center" style={{ marginTop: "2rem", color: "var(--gray-400)", fontSize: "0.85rem", fontWeight: 600 }}>
+              ← Swipe to explore our history →
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          {/* ─── QUALITY STANDARDS ─── */}
+      {/* --- QUALITY STANDARDS --- */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginTop: "5rem" }}>
             <div className="text-center" style={{ marginBottom: "3rem" }}>
               <div className="section-label section-label-light">Certifications</div>
@@ -592,7 +594,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* ─── R&D SECTION ─── */}
+          {/* --- R&D SECTION --- */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginTop: "5rem" }}>
             <div className="text-center" style={{ marginBottom: "3rem" }}>
               <div className="section-label section-label-light">Innovation Hub</div>
@@ -631,7 +633,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* ─── INFRASTRUCTURE SECTION ─── */}
+          {/* --- INFRASTRUCTURE SECTION --- */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginTop: "5rem" }}>
             <div className="text-center" style={{ marginBottom: "3rem" }}>
               <div className="section-label section-label-light">World-Class Facilities</div>
@@ -663,10 +665,8 @@ export default function Home() {
               </motion.div>
             </div>
           </motion.div>
-        </div>
-      </section>
 
-      {/* ═══ PRODUCT CATALOG ═════════════════════════ */}
+      {/* === PRODUCT CATALOG === */}
       <section id="products" className="catalog-section section-pad">
         <div className="container">
           <motion.div style={{ marginBottom: "2.5rem" }} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -911,7 +911,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ CONTACT ════════════════════════════════ */}
+      {/* === CONTACT === */}
       <section id="contact" className="contact-section section-pad">
         <div className="container">
           <motion.div className="text-center" style={{ marginBottom: "4rem" }} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
