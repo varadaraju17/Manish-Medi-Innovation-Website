@@ -1391,18 +1391,52 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.2; }
 h3 { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.3; }
 p { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.7; }
 
-/* Mobile Centering Fix */
-@media (max-width: 640px) {
-  .text-center-mobile, 
-  .hero-content-wrap h1, .hero-content-wrap p,
-  .section-pad .text-center, 
-  .about-section h2, .about-section p,
-  .catalog-hero-label, .catalog-section h2,
-  .growth-slider-wrapper h3 {
+/* Mobile Centering Fix - Aggressive Global */
+@media (max-width: 768px) {
+  .container, 
+  section, 
+  .section-pad,
+  .hero-content-wrap,
+  .about-section,
+  .catalog-section,
+  .news-section,
+  .contact-section,
+  .stats-section,
+  .specialties-section,
+  .growth-slider-wrapper {
     text-align: center !important;
   }
-  .hero-cta-row, .hero-stats { justify-content: center; }
-  .section-label { margin-left: auto; margin-right: auto; }
+
+  h1, h2, h3, h4, p, span, .section-label, .vc-label {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .hero-cta-row, .hero-stats, .auth-logo-row, .hero-stats div {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  .about-cards-row, .specialty-grid, .stats-grid-premium, .quality-milestones {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .infra-grid-premium, .rnd-grid, .quality-grid, .story-grid-elite {
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .infra-card, .rnd-feature, .quality-milestone, .impact-chip {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════════
