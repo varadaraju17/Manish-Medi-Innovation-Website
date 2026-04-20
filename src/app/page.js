@@ -832,33 +832,58 @@ export default function Home() {
                   
                   <button 
                     className="btn-elite-expand" 
-                    onClick={() => setIsNewsExpanded(!isNewsExpanded)}
+                    onClick={() => {
+                        setIsNewsExpanded(true);
+                        document.body.style.overflow = "hidden";
+                    }}
                   >
-                    {isNewsExpanded ? "Show Less" : "Read Full Story"}
-                    <ChevronRight 
-                      size={20} 
-                      style={{ 
-                        transform: isNewsExpanded ? "rotate(-90deg)" : "rotate(0deg)", 
-                        transition: "transform 0.4s" 
-                      }} 
-                    />
+                    Read Full Story
+                    <ChevronRight size={20} />
                   </button>
                 </div>
+              </div>
+            </div>
 
-                {/* Progressive Disclosure Content */}
-                <AnimatePresence>
-                  {isNewsExpanded && (
-                    <motion.div 
-                      className="expanded-story-box"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                      style={{ overflow: "hidden" }}
-                    >
+            {/* Premium News Modal */}
+            <AnimatePresence>
+              {isNewsExpanded && (
+                <motion.div 
+                    className="elite-modal-overlay"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => {
+                        setIsNewsExpanded(false);
+                        document.body.style.overflow = "unset";
+                    }}
+                >
+                  <motion.div 
+                    className="elite-modal-container"
+                    initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                    transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="elite-modal-header">
+                        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--sky-500)" }} />
+                            <span style={{ fontWeight: 800, textTransform: "uppercase", fontSize: "0.75rem", letterSpacing: 1, color: "var(--gray-900)" }}>Global Leadership Story</span>
+                        </div>
+                        <button className="elite-modal-close" onClick={() => {
+                            setIsNewsExpanded(false);
+                            document.body.style.overflow = "unset";
+                        }}>
+                            <X size={20} />
+                        </button>
+                    </div>
+
+                    <div className="elite-modal-body">
                       <div className="story-grid-elite">
                         {/* Main Context */}
                         <div className="story-main-text">
+                          <h2 style={{ marginBottom: "2rem", color: "var(--gray-900)" }}>Engineering Confidence for Global Healthcare</h2>
+                          
                           <p className="story-para">
                             In an extraordinary tale of vision and innovation, Mr Nirmal, the pioneering force behind Manish Medi Innovation, 
                             has led the company to unparalleled success in the global medical landscape. With over two decades of experience, 
@@ -902,11 +927,11 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </section>
