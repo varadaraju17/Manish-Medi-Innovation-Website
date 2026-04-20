@@ -582,8 +582,8 @@ export default function Home() {
                 { src: "/images/auth/iso-3ec.png", alt: "3EC Certified" },
                 { src: "/images/auth/iso-9001.png", alt: "ISO 9001" },
                 { src: "/images/auth/iso-13485.png", alt: "ISO 13485" },
-                { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Conformit%C3%A9_Europ%C3%A9enne_%28logo%29.svg/800px-Conformit%C3%A9_Europ%C3%A9enne_%28logo%29.svg.png", alt: "CE Mark" },
-                { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Recycle001.svg/800px-Recycle001.svg.png", alt: "Recyclable" },
+                { src: "/images/auth/ce.png", alt: "CE Mark" },
+                { src: "/images/auth/recycle.png", alt: "Recyclable" },
               ].map((logo, i) => (
                 <div key={i} className="auth-logo-item">
                   <img src={logo.src} alt={logo.alt} className="auth-logo-medium" />
@@ -932,8 +932,8 @@ export default function Home() {
                   { src: "/images/auth/iso-3ec.png", alt: "3EC" },
                   { src: "/images/auth/iso-9001.png", alt: "ISO 9001" },
                   { src: "/images/auth/iso-13485.png", alt: "ISO 13485" },
-                  { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Conformit%C3%A9_Europ%C3%A9enne_%28logo%29.svg/800px-Conformit%C3%A9_Europ%C3%A9enne_%28logo%29.svg.png", alt: "CE" },
-                  { src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Recycle001.svg/800px-Recycle001.svg.png", alt: "Recycle" },
+                  { src: "/images/auth/ce.png", alt: "CE" },
+                  { src: "/images/auth/recycle.png", alt: "Recycle" },
                 ].map((logo, i) => (
                   <div key={i} className="auth-logo-item">
                     <img src={logo.src} alt={logo.alt} className="auth-logo-small" />
