@@ -746,7 +746,7 @@ export default function Home() {
                 <h3 style={{ color: "var(--gray-900)", fontSize: "1.5rem" }}>Latest Events</h3>
                 <div style={{ color: "var(--sky-600)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: 1 }}>Recent Highlights</div>
               </div>
-              <div className="news-events-row" style={{ marginTop: "3rem" }}>
+              <div className="news-events-row">
                 {[
                   { title: "MedTech Asia 2024", desc: "Showcasing our latest urology innovations at the premier healthcare exhibition in Bangkok.", date: "MAR 2024", tag: "Exhibition", img: "/images/event-medtech.png" },
                   { title: "Clean Room Expansion", desc: "Completed commissioning of our new Class 10,000 packing facility ahead of schedule.", date: "FEB 2024", tag: "Facility", img: "/images/event-cleanroom.png" },
@@ -754,7 +754,7 @@ export default function Home() {
                 ].map((ev, i) => (
                   <motion.div key={ev.title} className="event-card-nextgen" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
                     <div className="event-img-wrap">
-                      <img src={ev.img} alt={ev.title} />
+                      <img src={ev.img} alt={ev.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       <div className="event-glass-badge">{ev.date}</div>
                     </div>
                     <div className="event-content">
@@ -798,82 +798,78 @@ export default function Home() {
               </motion.div>
             </div>
 
-            {/* 3. LATEST NEWS (Leadership Story) */}
-            <div className="news-editorial-hub" id="full-news">
-              <motion.div 
-                className="news-card-premium"
-                initial={{ opacity: 0, scale: 0.98 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
-                <div className="news-header">
-                  <span className="news-badge">Innovation Journal</span>
-                  <div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", gap: "15px", flexWrap: "wrap" }}>
-                    <h3 style={{ color: "var(--gray-900)", fontSize: "2.4rem", fontWeight: 800 }}>The Growth Story</h3>
-                    <span style={{ fontSize: "0.95rem", color: "var(--sky-500)", fontWeight: 800, textTransform: "uppercase" }}>April 2024 Edition</span>
-                  </div>
+            {/* 3. LATEST NEWS (Simple Progressive Card) */}
+            <div className="simple-media-hub" id="full-news">
+              <div className="article-card-lite">
+                {/* Teaser Section */}
+                <div className="card-teaser-header">
+                  <span className="teaser-label">Company Narrative</span>
+                  <h3 className="teaser-title">
+                    Engineering Confidence <br/> 
+                    for Global Healthcare
+                  </h3>
+                  
+                  <button 
+                    className="btn-know-more" 
+                    onClick={() => setIsNewsExpanded(!isNewsExpanded)}
+                  >
+                    {isNewsExpanded ? "Show Less" : "Know More"}
+                    <ChevronRight 
+                      size={20} 
+                      style={{ 
+                        transform: isNewsExpanded ? "rotate(-90deg)" : "rotate(0deg)", 
+                        transition: "transform 0.4s" 
+                      }} 
+                    />
+                  </button>
                 </div>
 
-                <motion.div className="leadership-content" style={{ maxWidth: "800px", margin: "0 auto" }}>
-                  <p className="leadership-story-p" style={{ textAlign: "center", marginBottom: "3rem" }}>
-                    <span className="text-gradient-sky" style={{ fontSize: "1.8rem", display: "block", marginBottom: "1rem" }}>A Legacy of Visionary Precision.</span>
-                    For over two decades, **Mr Nirmal**, the pioneering force behind Manish Medi Innovation, has sculpted an organization that stands at the intersection of medical engineering and human clinical needs.
-                  </p>
-
-                  <AnimatePresence mode="wait">
-                    {isNewsExpanded ? (
-                      <motion.div 
-                        key="expanded"
-                        initial={{ height: 0, opacity: 0 }} 
-                        animate={{ height: "auto", opacity: 1 }} 
-                        exit={{ height: 0, opacity: 0 }}
-                        style={{ overflow: "hidden", display: "flex", flexDirection: "column", gap: "2rem" }}
-                      >
-                        <p className="leadership-story-p">
-                          Starting with a modest range of 6 products, the journey has been one of relentless pursuit. Today, with over 94 variations covering **Urology, Radiology, Gastroenterology**, and more, the impact is felt across **45+ countries**. 
-                        </p>
-                        
-                        <div className="leadership-quote">
-                          "Our commitment isn't just to manufacture devices; it's to engineer confidence for every surgeon and hope for every patient we serve."
-                        </div>
-
-                        <p className="leadership-story-p">
-                          Operating from a sprawling <strong className="text-gradient-sky">50,000 sq.ft.</strong> facility with world-class manufacturing units, the organization exports globally, showcasing the prowess of Indian innovation. With certifications from **ISO 13485, CE, and Indian FDA**, we ensure absolute precision at every scale.
-                        </p>
-                        
-                        <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
-                          <button className="read-more-premium" onClick={() => setIsNewsExpanded(false)}>
-                            Collapse Journal <ChevronRight size={20} style={{ transform: "rotate(-90deg)" }} />
-                          </button>
-                        </div>
-                      </motion.div>
-                    ) : (
-                      <motion.div 
-                        key="collapsed"
-                        initial={{ opacity: 0 }} 
-                        animate={{ opacity: 1 }} 
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        <button className="read-more-premium" onClick={() => setIsNewsExpanded(true)}>
-                          Read Full Journal <ChevronRight size={20} />
-                        </button>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
-                    <button 
-                      className="read-more-btn" 
-                      onClick={() => setIsNewsExpanded(!isNewsExpanded)}
-                      style={{ background: "var(--sky-50)", padding: "0.8rem 1.5rem", borderRadius: "var(--r-full)", border: "1px solid var(--sky-100)" }}
+                {/* Expanded Information */}
+                <AnimatePresence>
+                  {isNewsExpanded && (
+                    <motion.div 
+                      className="reveal-content-box"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                      style={{ overflow: "hidden" }}
                     >
-                      {isNewsExpanded ? "Collapse Story" : "Read Full Story"} 
-                      <ChevronRight size={16} style={{ transform: isNewsExpanded ? "rotate(-90deg)" : "rotate(0deg)", transition: "transform 0.4s" }} />
-                    </button>
-                  </div>
-                </motion.div>
-              </motion.div>
+                      <div className="reveal-inner">
+                        <div className="reveal-grid">
+                          {/* Story */}
+                          <div className="reveal-story">
+                            <p className="reveal-story-text">
+                              For over two decades, Mr Nirmal has sculpted an organization that stands at the intersection of medical engineering and human clinical needs. 
+                              Starting with a modest range of 6 products, the journey has been one of relentless pursuit. 
+                              Today, with over 94 variations, the impact is felt across 45+ countries.
+                            </p>
+                            <p className="reveal-story-text" style={{ marginTop: "1.5rem", fontStyle: "italic", color: "var(--gray-900)", fontWeight: 600 }}>
+                              &quot;Our commitment isn&apos;t just to manufacture devices; it&apos;s to engineer confidence for every surgeon.&quot;
+                            </p>
+                          </div>
+
+                          {/* Snapshot Stats */}
+                          <div className="reveal-stats-list">
+                            <div className="reveal-stat-item">
+                              <div className="reveal-stat-val">45+</div>
+                              <div className="reveal-stat-label">Export Countries</div>
+                            </div>
+                            <div className="reveal-stat-item">
+                              <div className="reveal-stat-val">94+</div>
+                              <div className="reveal-stat-label">Product Variations</div>
+                            </div>
+                            <div className="reveal-stat-item">
+                              <div className="reveal-stat-val">20+</div>
+                              <div className="reveal-stat-label">Years of Excellence</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </div>
