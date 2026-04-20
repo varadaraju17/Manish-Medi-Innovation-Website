@@ -1852,3 +1852,48 @@ p { line-height: 1.8; }
   flex-direction: column;
   gap: 1.5rem;
 }
+
+/* ═══════════════════════════════════════════════════
+   CERTIFICATION LOGOS
+═══════════════════════════════════════════════════ */
+.auth-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.auth-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.auth-logo-item:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: translateY(-5px);
+}
+
+.auth-logo-medium {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+}
+
+.auth-logo-small {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .auth-logo-row { gap: 1.5rem; }
+  .auth-logo-medium { height: 50px; }
+  .auth-logo-small { height: 32px; }
+}

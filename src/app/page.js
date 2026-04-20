@@ -574,6 +574,21 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* Certification Logos - Medium */}
+            <div className="auth-logo-row">
+              {[
+                { src: "/images/auth/iaf.png", alt: "IAF Member" },
+                { src: "/images/auth/iso-3ec.png", alt: "3EC Certified" },
+                { src: "/images/auth/iso-9001.png", alt: "ISO 9001" },
+                { src: "/images/auth/iso-13485.png", alt: "ISO 13485" },
+                { src: "/images/auth/ce.svg", alt: "CE Mark" },
+              ].map((logo, i) => (
+                <div key={i} className="auth-logo-item">
+                  <img src={logo.src} alt={logo.alt} className="auth-logo-medium" />
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           {/* ─── R&D SECTION ─── */}
@@ -980,6 +995,21 @@ export default function Home() {
                 <div className="footer-social">tw</div>
                 <div className="footer-social">fb</div>
                 <div className="footer-social">yt</div>
+              </div>
+              
+              {/* Certification Logos - Small */}
+              <div className="auth-logo-row" style={{ justifyContent: "flex-start", gap: "1.5rem", marginTop: "2rem" }}>
+                {[
+                  { src: "/images/auth/iaf.png", alt: "IAF" },
+                  { src: "/images/auth/iso-3ec.png", alt: "3EC" },
+                  { src: "/images/auth/iso-9001.png", alt: "ISO 9001" },
+                  { src: "/images/auth/iso-13485.png", alt: "ISO 13485" },
+                  { src: "/images/auth/ce.svg", alt: "CE" },
+                ].map((logo, i) => (
+                  <div key={i} className="auth-logo-item">
+                    <img src={logo.src} alt={logo.alt} className="auth-logo-small" />
+                  </div>
+                ))}
               </div>
             </div>
 
