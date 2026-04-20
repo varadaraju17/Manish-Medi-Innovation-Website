@@ -75,6 +75,14 @@ export default function Home() {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState({ code: 'en', label: 'English', flag: '🇺🇸' });
   const [openFooterSection, setOpenFooterSection] = useState(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkSize = () => setIsDesktop(window.innerWidth > 768);
+    checkSize();
+    window.addEventListener('resize', checkSize);
+    return () => window.removeEventListener('resize', checkSize);
+  }, []);
 
   const languages = [
     { code: 'en', label: 'English', flag: '🇺🇸' },
@@ -1224,7 +1232,7 @@ export default function Home() {
               </button>
               
               <AnimatePresence>
-                {(openFooterSection === 'specialties' || typeof window !== "undefined" && window.innerWidth > 768) && (
+                {(openFooterSection === 'specialties' || isDesktop) && (
                   <motion.div 
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
@@ -1256,7 +1264,7 @@ export default function Home() {
               </button>
 
               <AnimatePresence>
-                {(openFooterSection === 'connect' || typeof window !== "undefined" && window.innerWidth > 768) && (
+                {(openFooterSection === 'connect' || isDesktop) && (
                   <motion.div 
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
