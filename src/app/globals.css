@@ -1276,6 +1276,7 @@ p { line-height: 1.8; }
 .text-gradient-sky {
   background: linear-gradient(135deg, var(--sky-600), var(--sky-400));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 800;
 }
@@ -1870,24 +1871,24 @@ p { line-height: 1.8; }
   align-items: center;
   justify-content: center;
   transition: all 0.4s ease;
-  filter: grayscale(1);
-  opacity: 0.7;
+  filter: none; /* Removed grayscale */
+  opacity: 1; /* Full opacity */
 }
 
 .auth-logo-item:hover {
-  filter: grayscale(0);
-  opacity: 1;
-  transform: translateY(-5px);
+  transform: translateY(-8px) scale(1.05); /* Enhanced hover effect */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
 .auth-logo-medium {
-  height: 70px;
+  height: 110px; /* Increased from 70px */
   width: auto;
   object-fit: contain;
+  padding: 0.5rem;
 }
 
 .auth-logo-small {
-  height: 40px;
+  height: 45px; /* Slightly increased from 40px */
   width: auto;
   object-fit: contain;
 }
