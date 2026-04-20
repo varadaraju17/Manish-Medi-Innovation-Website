@@ -56,13 +56,14 @@ const Particles = () => {
 
 /* ─── Main ──────────────────────────────────────── */
 export default function Home() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [activeMainTab, setActiveMainTab] = useState("UROLOGY");
-  const [activeSubTab, setActiveSubTab] = useState("Access Products");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [quoteForm, setQuoteForm] = useState({ name: "", company: "", email: "", phone: "", product: "", message: "" });
+  const [activeSubTab, setActiveSubTab] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [quoteSent, setQuoteSent] = useState(false);
+  const [isNewsExpanded, setIsNewsExpanded] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const scrollRef = useRef(null);
 
@@ -72,8 +73,59 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scroll = dir => {
-    scrollRef.current?.scrollBy({ left: dir === "left" ? -500 : 500, behavior: "smooth" });
+  const scroll = (dir) => { if (scrollRef.current) scrollRef.current.scrollBy({ left: dir === 'left' ? -350 : 350, behavior: 'smooth' }); };
+
+  const PerformanceGraph = () => {
+    const points = [
+      { x: 0, y: 180, label: "2004" },
+      { x: 100, y: 160, label: "2008" },
+      { x: 200, y: 130, label: "2012" },
+      { x: 300, y: 110, label: "2016" },
+      { x: 400, y: 60, label: "2020" },
+      { x: 500, y: 20, label: "2024" }
+    ];
+    
+    // Create path string
+    const d = `M ${points.map(p => `${p.x},${p.y}`).join(' L ')}`;
+    const areaD = `${d} L 500,200 L 0,200 Z`;
+
+    return (
+      <div className="performance-graph-wrap">
+        <svg viewBox="0 0 500 200" className="performance-svg" preserveAspectRatio="none" style={{ width: "100%", height: "240px", display: "block" }}>
+          <defs>
+            <linearGradient id="graphGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="var(--sky-400)" />
+              <stop offset="100%" stopColor="var(--sky-50)" />
+            </linearGradient>
+          </defs>
+          
+          {/* Grid lines */}
+          {[0, 50, 100, 150].map(y => <line key={y} x1="0" y1={y} x2="500" y2={y} className="graph-grid-line" />)}
+          
+          {/* Area */}
+          <motion.path d={areaD} className="graph-area" initial={{ opacity: 0 }} whileInView={{ opacity: 0.2 }} viewport={{ once: true }} transition={{ duration: 1.5 }} />
+          
+          {/* Path */}
+          <motion.path 
+            d={d} className="graph-path" 
+            initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} 
+            transition={{ duration: 2, ease: "easeInOut" }} 
+          />
+          
+          {/* Points */}
+          {points.map((p, i) => (
+            <motion.circle 
+              key={i} cx={p.x} cy={p.y} r="5" className="graph-point" 
+              initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} 
+              transition={{ delay: 1 + i * 0.2 }} 
+            />
+          ))}
+        </svg>
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "1rem", padding: "0 5px" }}>
+          {points.map(p => <span key={p.label} style={{ fontSize: "0.7rem", color: "var(--gray-400)", fontWeight: 700 }}>{p.label}</span>)}
+        </div>
+      </div>
+    );
   };
 
   const handleQuoteSubmit = e => {
@@ -140,11 +192,11 @@ export default function Home() {
   ];
 
   const timeline = [
-    { year: "2004", title: "Company Founded", desc: "Launched with 6 pioneering urology products, setting the foundation for precision medical device manufacturing.", side: "left" },
-    { year: "2007", title: "Portfolio Expansion", desc: "Grew to 19 products across Urology and Interventional Radiology. First international distribution agreements signed.", side: "right" },
-    { year: "2011", title: "52-Product Range", desc: "Launched Gastroenterology and Gynaecology product lines. Secured ISO 9001 certification.", side: "left" },
-    { year: "2015", title: "94 Product Variations", desc: "Comprehensive catalog covering all five clinical specialties. Expanded to 30+ export countries.", side: "right" },
-    { year: "2018", title: "State-of-the-Art Facility", desc: "Moved to a new 30,000 sq.ft manufacturing complex with advanced clean rooms, QC labs, and R&D infrastructure.", side: "left" },
+    { year: "2004", title: "Company Founded", desc: "Launched with 6 pioneering urology products, setting the foundation for precision medical device manufacturing.", side: "left", image: "/images/growth-2004.png" },
+    { year: "2007", title: "Portfolio Expansion", desc: "Grew to 19 products across Urology and Interventional Radiology. First international distribution agreements signed.", side: "right", image: "/images/growth-2007.png" },
+    { year: "2011", title: "52-Product Range", desc: "Launched Gastroenterology and Gynaecology product lines. Secured ISO 9001 certification.", side: "left", image: "/images/growth-2011.png" },
+    { year: "2015", title: "94 Product Variations", desc: "Comprehensive catalog covering all five clinical specialties. Expanded to 30+ export countries.", side: "right", image: "/images/growth-2015.png" },
+    { year: "2024", title: "Global Innovation Leader", desc: "Moved to a new 50,000 sq.ft manufacturing complex with advanced clean rooms and R&D infrastructure.", side: "left", image: "/images/growth-2024.png" },
   ];
 
   return (
@@ -346,32 +398,39 @@ export default function Home() {
         <div className="container">
           {/* Stats */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="section-label section-label-dark text-center" style={{ marginBottom: "2.5rem" }}>By the Numbers</div>
+            <div className="section-label section-label-dark text-center" style={{ marginBottom: "2.5rem" }}>Growth & Metrics</div>
+            
+            <div className="graph-container" style={{ marginBottom: "5rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "2.5rem", flexWrap: "wrap", gap: "1rem" }}>
+                <div>
+                  <h3 style={{ color: "var(--gray-900)", marginBottom: "0.25rem" }}>Performance Trend</h3>
+                  <p style={{ color: "var(--gray-500)", fontSize: "0.9rem" }}>Global expansion and production capacity growth</p>
+                </div>
+                <div style={{ display: "flex", gap: "1.5rem" }}>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--sky-600)" }}>250K+</div>
+                    <div style={{ fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: 1, color: "var(--gray-400)" }}>Units / Mo</div>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--sky-600)" }}>45+</div>
+                    <div style={{ fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: 1, color: "var(--gray-400)" }}>Countries</div>
+                  </div>
+                </div>
+              </div>
+              <PerformanceGraph />
+            </div>
+
             <div className="stats-grid-premium" style={{ marginBottom: "5rem" }}>
               {[
-                { num: "20+", lbl: "Years of Excellence" },
-                { num: "100+", lbl: "Medical Devices" },
-                { num: "45+", lbl: "Export Countries" },
-                { num: "1M+", lbl: "Units / Month" },
+                { num: "20+", lbl: "Years of Excellence", icon: <Award size={20} /> },
+                { num: "100+", lbl: "Medical Devices", icon: <Activity size={20} /> },
+                { num: "45+", lbl: "Export Countries", icon: <Globe size={20} /> },
+                { num: "1M+", lbl: "Units / Month", icon: <Zap size={20} /> },
               ].map((s, i) => (
                 <motion.div key={s.lbl} className="stat-box" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                  <div style={{ color: "var(--sky-500)", marginBottom: "0.5rem" }}>{s.icon}</div>
                   <span className="stat-num">{s.num}</span>
                   <span className="stat-label">{s.lbl}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Features grid */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="section-label section-label-dark text-center" style={{ marginBottom: "1rem" }}>Why Manish Medi</div>
-            <h2 className="text-center" style={{ color: "var(--gray-900)", marginBottom: "3rem" }}>Engineering Trust. Delivering Care.</h2>
-            <div className="features-grid-3">
-              {features.map((f, i) => (
-                <motion.div key={f.title} className="feature-glass-card" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                  <div className="feature-icon">{f.icon}</div>
-                  <div className="feature-title">{f.title}</div>
-                  <p className="feature-desc">{f.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -393,84 +452,92 @@ export default function Home() {
           {/* Vision + Mission */}
           <div className="about-cards-row">
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <div className="vision-card">
-                <div className="vc-icon-wrap" style={{ background: "rgba(0,212,255,0.15)" }}>
-                  <Eye size={26} color="#00d4ff" />
+              <div className="vision-card" style={{ padding: 0, overflow: "hidden" }}>
+                <div style={{ height: "180px", position: "relative" }}>
+                  <img src="/images/vision.png" alt="Our Vision" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <div className="vc-icon-wrap" style={{ position: "absolute", bottom: "-20px", right: "20px", background: "white", boxShadow: "var(--shadow-md)" }}>
+                    <Eye size={24} color="#00d4ff" />
+                  </div>
                 </div>
-                <span className="vc-label" style={{ color: "rgba(0,212,255,0.8)" }}>Our Vision</span>
-                <div className="vc-title" style={{ color: "white" }}>Serving Patients Worldwide</div>
-                <p className="vc-text" style={{ color: "rgba(255,255,255,0.65)" }}>
-                  To provide high-quality, cost-effective medical products and serve patients worldwide with advanced healthcare solutions that make precision care accessible to everyone.
-                </p>
+                <div style={{ padding: "2.5rem" }}>
+                  <span className="vc-label" style={{ color: "rgba(0,212,255,0.8)" }}>Our Vision</span>
+                  <div className="vc-title" style={{ color: "white" }}>Serving Patients Worldwide</div>
+                  <p className="vc-text" style={{ color: "rgba(255,255,255,0.65)" }}>
+                    To provide high-quality, cost-effective medical products and serve patients worldwide with advanced healthcare solutions that make precision care accessible to everyone.
+                  </p>
+                </div>
               </div>
             </motion.div>
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <div className="mission-card">
-                <div className="vc-icon-wrap" style={{ background: "rgba(37,99,235,0.08)" }}>
-                  <Target size={26} color="var(--electric-dim)" />
+              <div className="mission-card" style={{ padding: 0, overflow: "hidden" }}>
+                <div style={{ height: "180px", position: "relative" }}>
+                  <img src="/images/mission.png" alt="Our Mission" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <div className="vc-icon-wrap" style={{ position: "absolute", bottom: "-20px", right: "20px", background: "white", boxShadow: "var(--shadow-md)" }}>
+                    <Target size={24} color="var(--electric-dim)" />
+                  </div>
                 </div>
-                <span className="vc-label" style={{ color: "var(--electric-dim)" }}>Our Mission</span>
-                <div className="vc-title" style={{ color: "var(--gray-900)" }}>Innovation Without Compromise</div>
-                <p className="vc-text" style={{ color: "var(--gray-500)" }}>
-                  To continuously innovate and manufacture reliable medical devices meeting international standards, ensuring affordability and accessibility for healthcare systems across the globe.
-                </p>
+                <div style={{ padding: "2.5rem" }}>
+                  <span className="vc-label" style={{ color: "var(--electric-dim)" }}>Our Mission</span>
+                  <div className="vc-title" style={{ color: "var(--gray-900)" }}>Innovation Without Compromise</div>
+                  <p className="vc-text" style={{ color: "var(--gray-500)" }}>
+                    To continuously innovate and manufacture reliable medical devices meeting international standards, ensuring affordability and accessibility for healthcare systems across the globe.
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>
 
-          {/* Timeline */}
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h3 className="timeline-section-title" style={{ color: "var(--gray-900)", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
-              <History size={22} color="var(--electric-dim)" /> Our Growth Story
+          <motion.div className="timeline-section-v2" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+            <h3 className="timeline-section-title" style={{ color: "var(--gray-900)", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: "5rem", fontSize: "2rem" }}>
+              <History size={28} color="var(--sky-600)" /> Our Growth Story
             </h3>
-            <div className="timeline-wrap" style={{ position: "relative" }}>
-              <div className="timeline-line" />
-              <div className="timeline-items">
+            
+            <div className="timeline-v2-container">
+              {/* Central Energy Line */}
+              <div className="timeline-v2-line-central">
+                <motion.div 
+                  className="timeline-v2-line-progress"
+                  style={{ height: useTransform(scrollYProgress, [0.4, 0.6], ["0%", "100%"]) }}
+                />
+              </div>
+
+              <div className="timeline-v2-items">
                 {timeline.map((t, i) => (
-                  <motion.div key={t.year} className="timeline-item" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                    {t.side === "left" ? (
-                      <>
-                        <div className="timeline-content">
-                          <div className="timeline-year">{t.year}</div>
-                          <div className="timeline-title">{t.title}</div>
-                          <div className="timeline-desc">{t.desc}</div>
+                  <motion.div 
+                    key={t.year} 
+                    className={`timeline-v2-item ${t.side}`}
+                    initial={{ opacity: 0, x: t.side === 'left' ? -50 : 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, delay: i * 0.1 }}
+                  >
+                    <div className="timeline-v2-item-inner">
+                      {/* Card Content */}
+                      <div className="timeline-v2-content-wrap">
+                        <div className="timeline-v2-card-premium">
+                          {t.image && (
+                            <div className="timeline-v2-img-container">
+                              <img src={t.image} alt={t.title} />
+                            </div>
+                          )}
+                          <div className="timeline-v2-year-label">{t.year}</div>
+                          <h4 className="timeline-v2-title" style={{ marginTop: "0.5rem" }}>{t.title}</h4>
+                          <p className="timeline-v2-desc">{t.desc}</p>
                         </div>
-                        <div className="timeline-dot" style={{ marginTop: "1.5rem" }}>{t.year.slice(2)}</div>
-                        <div className="timeline-spacer" />
-                      </>
-                    ) : (
-                      <>
-                        <div className="timeline-spacer" />
-                        <div className="timeline-dot" style={{ marginTop: "1.5rem" }}>{t.year.slice(2)}</div>
-                        <div className="timeline-content">
-                          <div className="timeline-year">{t.year}</div>
-                          <div className="timeline-title">{t.title}</div>
-                          <div className="timeline-desc">{t.desc}</div>
+                      </div>
+
+                      {/* Marker */}
+                      <div className="timeline-v2-marker-col">
+                        <div className="timeline-v2-marker-center">
+                          <div style={{ width: 12, height: 12, borderRadius: "50%", background: "var(--sky-500)" }} />
                         </div>
-                      </>
-                    )}
+                      </div>
+                    </div>
                   </motion.div>
                 ))}
               </div>
             </div>
           </motion.div>
-
-          {/* Certs */}
-          <div className="cert-strip">
-            {[
-              { icon: <Shield size={24} color="var(--sky-600)" />, t: "ISO 9001:2015 Certified", d: "Strict international quality compliance at every manufacturing stage ensuring global standard devices." },
-              { icon: <Globe size={24} color="var(--sky-600)" />, t: "45+ Export Countries", d: "Trusted by hospitals and distributors across Asia, Europe, Middle East, and the Americas." },
-              { icon: <Factory size={24} color="var(--sky-600)" />, t: "30,000 sq.ft Facility", d: "State-of-the-art clean rooms, sterile production lines, and on-site R&D and QA labs." },
-            ].map((c, i) => (
-              <motion.div key={c.t} className="cert-card" initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                <div className="cert-icon">{c.icon}</div>
-                <div>
-                  <div className="cert-title">{c.t}</div>
-                  <div className="cert-desc">{c.d}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
 
           {/* ─── QUALITY STANDARDS ─── */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginTop: "5rem" }}>
@@ -535,10 +602,14 @@ export default function Home() {
                 </div>
               </div>
               <div className="rnd-visual">
-                <div className="rnd-visual-card">
-                  <Zap size={48} color="var(--sky-400)" strokeWidth={1.5} />
-                  <div className="rnd-visual-title">R&amp;D Lab</div>
-                  <div className="rnd-visual-subtitle">Class 10,000 ISO Standard</div>
+                <div className="rnd-visual-card" style={{ background: "none", border: "none", boxShadow: "none" }}>
+                  <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: "var(--r-xl)", overflow: "hidden", border: "1px solid var(--sky-200)", boxShadow: "var(--shadow-md)" }}>
+                    <img src="/images/rnd-lab.png" alt="R&D Lab" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent)", padding: "1.5rem" }}>
+                      <div className="rnd-visual-title" style={{ color: "white" }}>Class 10,000 Lab</div>
+                      <div className="rnd-visual-subtitle" style={{ color: "rgba(255,255,255,0.7)" }}>Sterile Innovation Hub</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -553,28 +624,27 @@ export default function Home() {
             <p className="text-center" style={{ color: "var(--gray-500)", maxWidth: 700, margin: "0 auto 3rem", fontSize: "1.02rem", lineHeight: 1.85 }}>
               There are 4 dedicated world-class manufacturing facilities to produce international medical devices. All assembly activities are done under Class 100,000 clean rooms.
             </p>
-            <div className="infra-grid">
-              {[
-                { icon: <Factory size={28} color="var(--sky-600)" />, title: "4 Manufacturing Facilities", desc: "Dedicated world-class facilities designed to produce international-grade medical devices with precision." },
-                { icon: <Shield size={28} color="var(--sky-600)" />, title: "Class 100,000 Clean Rooms", desc: "All assembly activities are performed under Class 100,000 clean room environments for maximum sterility." },
-                { icon: <Lock size={28} color="var(--sky-600)" />, title: "Class 10,000 Packing", desc: "Primary packaging of all products happens in Class 10,000 clean rooms maintaining contamination-free standards." },
-                { icon: <Zap size={28} color="var(--sky-600)" />, title: "ISO-Standard R&D Lab", desc: "Laboratory and R&D operates in Class 10,000 as per ISO standards for advanced product development." },
-              ].map((item, i) => (
-                <motion.div key={item.title} className="infra-card" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                  <div className="infra-icon">{item.icon}</div>
-                  <div className="infra-title">{item.title}</div>
-                  <p className="infra-desc">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-            {/* Infrastructure images — TODO: replace with actual images */}
-            <div className="infra-images">
-              <div className="infra-img-box">
-                <img src="/images/infrastructure-1.jpg" alt="Manufacturing Facility" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--gray-400);font-size:0.85rem">Infrastructure Image 1</div>'; }} />
+            <div className="infra-grid-premium">
+              <div className="infra-content-side">
+                {[
+                  { icon: <Factory size={24} color="var(--sky-600)" />, title: "4 Manufacturing Facilities", desc: "Dedicated world-class facilities designed to produce international-grade medical devices with precision." },
+                  { icon: <Shield size={24} color="var(--sky-600)" />, title: "Class 100,000 Clean Rooms", desc: "All assembly activities are performed under Class 100,000 clean room environments for maximum sterility." },
+                  { icon: <Lock size={24} color="var(--sky-600)" />, title: "Class 10,000 Packing", desc: "Primary packaging of all products happens in Class 10,000 clean rooms maintaining contamination-free standards." },
+                  { icon: <Zap size={24} color="var(--sky-600)" />, title: "ISO-Standard R&D Lab", desc: "Laboratory and R&D operates in Class 10,000 as per ISO standards for advanced product development." },
+                ].map((item, i) => (
+                  <motion.div key={item.title} className="infra-card" initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} style={{ display: "flex", gap: "1.25rem", padding: "1.5rem" }}>
+                    <div className="infra-icon" style={{ flexShrink: 0 }}>{item.icon}</div>
+                    <div>
+                      <div className="infra-title" style={{ marginBottom: "0.25rem" }}>{item.title}</div>
+                      <div className="infra-desc">{item.desc}</div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-              <div className="infra-img-box">
-                <img src="/images/infrastructure-2.jpg" alt="Clean Room Facility" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--gray-400);font-size:0.85rem">Infrastructure Image 2</div>'; }} />
-              </div>
+              <motion.div className="infra-visual-wrap" initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                <img src="/images/infrastructure.png" alt="World-Class Manufacturing Facility" style={{ width: "100%", height: "auto" }} />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(255,255,255,0.1), transparent)" }} />
+              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -664,71 +734,145 @@ export default function Home() {
       {/* ═══ LATEST NEWS & EVENTS ═════════════════════ */}
       <section id="news" className="news-section section-pad">
         <div className="container">
-          <motion.div className="text-center" style={{ marginBottom: "4rem" }} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <div className="section-label section-label-light">Updates & Events</div>
-            <h2 style={{ color: "var(--gray-900)" }}>LATEST NEWS and Events</h2>
+          <motion.div className="text-center" style={{ marginBottom: "5rem" }} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="section-label section-label-light">Updates & Media</div>
+            <h2 style={{ color: "var(--gray-900)" }}>Latest Events &amp; News</h2>
           </motion.div>
 
           <div className="news-grid">
-            {/* Video Placeholder */}
-            <motion.div 
-              className="news-video-placeholder"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-            >
-              <div style={{ padding: "3rem", display: "flex", flexDirection: "column", alignItems: "center", zIndex: 2 }}>
-                <div style={{ width: 80, height: 80, borderRadius: "50%", background: "var(--sky-500)", display: "flex", alignItems: "center", justifySpaceAround: "center", marginBottom: "1.5rem", boxShadow: "0 0 30px rgba(14, 165, 233, 0.4)", cursor: "pointer" }}>
-                  <Play size={32} color="white" style={{ marginLeft: 4 }} />
-                </div>
-                <h3 style={{ color: "var(--gray-900)", marginBottom: "0.5rem" }}>Video Background (Path TBD)</h3>
-                <p style={{ color: "var(--gray-500)", fontSize: "0.9rem" }}>A visual journey into Manish Medi Innovation</p>
+            {/* 1. LATEST EVENTS */}
+            <div className="news-events-showcase">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+                <h3 style={{ color: "var(--gray-900)", fontSize: "1.5rem" }}>Latest Events</h3>
+                <div style={{ color: "var(--sky-600)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: 1 }}>Recent Highlights</div>
               </div>
-            </motion.div>
+              <div className="news-events-row" style={{ marginTop: "3rem" }}>
+                {[
+                  { title: "MedTech Asia 2024", desc: "Showcasing our latest urology innovations at the premier healthcare exhibition in Bangkok.", date: "MAR 2024", tag: "Exhibition", img: "/images/event-medtech.png" },
+                  { title: "Clean Room Expansion", desc: "Completed commissioning of our new Class 10,000 packing facility ahead of schedule.", date: "FEB 2024", tag: "Facility", img: "/images/event-cleanroom.png" },
+                  { title: "Global Partner Meet", desc: "Hosting distributors from 20+ countries at our corporate headquarters in India.", date: "JAN 2024", tag: "Global", img: "/images/event-partners.png" },
+                ].map((ev, i) => (
+                  <motion.div key={ev.title} className="event-card-nextgen" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15, duration: 0.6 }}>
+                    <div className="event-img-wrap">
+                      <img src={ev.img} alt={ev.title} />
+                      <div className="event-glass-badge">{ev.date}</div>
+                    </div>
+                    <div className="event-content">
+                      <span className="event-tag-premium">{ev.tag}</span>
+                      <h4 className="event-title-h4">{ev.title}</h4>
+                      <p className="event-desc-p">{ev.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
 
-            {/* Leadership/Story Block */}
-            <div className="leadership-highlight">
+            {/* 2. VIDEO SHOWCASE */}
+            <div className="news-video-showcase">
               <motion.div 
-                className="leadership-card"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                className="video-glass-container"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <div className="leadership-img-wrap">
-                  <img src="/images/logo.png" alt="Manish Medi Logo" />
-                </div>
-                <div className="leadership-title">
-                  <div className="leadership-name">Mr. Nirmal</div>
-                  <div className="leadership-role">Founder / Pioneering Force</div>
+                <div className="news-video-container">
+                  <div className="video-status-tag">
+                    <span className="status-pulse"></span>
+                    FEATURED SHOWCASE
+                  </div>
+                  <video 
+                    className="showcase-video"
+                    controls
+                    poster="/images/video-poster.jpg"
+                  >
+                    <source src="/videos/corporate-showcase.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                  <div className="video-overlay-text">
+                    <div className="glass-play-btn">
+                      <Play size={32} fill="white" color="white" />
+                    </div>
+                    <p className="video-caption">Manish Medi Innovation Journey</p>
+                  </div>
                 </div>
               </motion.div>
+            </div>
 
+            {/* 3. LATEST NEWS (Leadership Story) */}
+            <div className="news-editorial-hub" id="full-news">
               <motion.div 
-                className="leadership-content"
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                className="news-card-premium"
+                initial={{ opacity: 0, scale: 0.98 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
               >
-                <p className="leadership-story-p">
-                  In an extraordinary tale of vision and innovation, **Mr Nirmal**, the pioneering force behind Manish medi Innovation, has led the company to unparalleled success in the global medical landscape. With over two decades of experience, Mr. Nirmal&apos;s leadership has not only steered the organization through the intricacies of the medical industry but has also established it as a beacon of excellence and ingenuity.
-                </p>
-                <p className="leadership-story-p">
-                  Under Mr. Nirmal&apos;s guidance, Manish medi has become a symbol of cutting-edge medical solutions, excelling in Urology, Gastroenterology, Gynecology, Radiology, and Nephrology. The commitment to precision, accuracy, and hygiene has elevated the organization to a position of trust, resonating with patients and healthcare professionals alike.
-                </p>
-                
-                <div className="leadership-quote">
-                  &quot;Manish medi Innovation is not just a company; it&apos;s a triumph of vision and innovation, leaving an indelible mark on the global medical landscape.&quot;
+                <div className="news-header">
+                  <span className="news-badge">Innovation Journal</span>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", gap: "15px", flexWrap: "wrap" }}>
+                    <h3 style={{ color: "var(--gray-900)", fontSize: "2.4rem", fontWeight: 800 }}>The Growth Story</h3>
+                    <span style={{ fontSize: "0.95rem", color: "var(--sky-500)", fontWeight: 800, textTransform: "uppercase" }}>April 2024 Edition</span>
+                  </div>
                 </div>
 
-                <p className="leadership-story-p">
-                  What sets Manish medi apart is not just its local success but its global impact. Operating from a sprawling **50,000 sq.ft.** facility with four world-class manufacturing units, the organization exports its state-of-the-art medical devices to over **45 countries**. The &apos;Make in India&apos; tag resonates with international markets, showcasing the prowess of Indian innovation on a global stage.
-                </p>
-                <p className="leadership-story-p">
-                  Certified with ISO 13485, CE, and Indian FDA approvals, Manish medi stands as a testament to its commitment to quality and compliance. The four dedicated International standard manufacturing facilities adhere to stringent International GMP standards, ensuring the production of **250,000 units per month** with the utmost precision and hygiene.
-                </p>
-                <p className="leadership-story-p">
-                  Mr. Nirmal&apos;s journey from inception to this moment is not just a success story; it&apos;s an inspiration for the entire healthcare industry. Cheers to Mr. Nirmal and Manish medi for this remarkable achievement!
-                </p>
+                <motion.div className="leadership-content" style={{ maxWidth: "800px", margin: "0 auto" }}>
+                  <p className="leadership-story-p" style={{ textAlign: "center", marginBottom: "3rem" }}>
+                    <span className="text-gradient-sky" style={{ fontSize: "1.8rem", display: "block", marginBottom: "1rem" }}>A Legacy of Visionary Precision.</span>
+                    For over two decades, **Mr Nirmal**, the pioneering force behind Manish Medi Innovation, has sculpted an organization that stands at the intersection of medical engineering and human clinical needs.
+                  </p>
+
+                  <AnimatePresence mode="wait">
+                    {isNewsExpanded ? (
+                      <motion.div 
+                        key="expanded"
+                        initial={{ height: 0, opacity: 0 }} 
+                        animate={{ height: "auto", opacity: 1 }} 
+                        exit={{ height: 0, opacity: 0 }}
+                        style={{ overflow: "hidden", display: "flex", flexDirection: "column", gap: "2rem" }}
+                      >
+                        <p className="leadership-story-p">
+                          Starting with a modest range of 6 products, the journey has been one of relentless pursuit. Today, with over 94 variations covering **Urology, Radiology, Gastroenterology**, and more, the impact is felt across **45+ countries**. 
+                        </p>
+                        
+                        <div className="leadership-quote">
+                          "Our commitment isn't just to manufacture devices; it's to engineer confidence for every surgeon and hope for every patient we serve."
+                        </div>
+
+                        <p className="leadership-story-p">
+                          Operating from a sprawling <strong className="text-gradient-sky">50,000 sq.ft.</strong> facility with world-class manufacturing units, the organization exports globally, showcasing the prowess of Indian innovation. With certifications from **ISO 13485, CE, and Indian FDA**, we ensure absolute precision at every scale.
+                        </p>
+                        
+                        <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
+                          <button className="read-more-premium" onClick={() => setIsNewsExpanded(false)}>
+                            Collapse Journal <ChevronRight size={20} style={{ transform: "rotate(-90deg)" }} />
+                          </button>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div 
+                        key="collapsed"
+                        initial={{ opacity: 0 }} 
+                        animate={{ opacity: 1 }} 
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <button className="read-more-premium" onClick={() => setIsNewsExpanded(true)}>
+                          Read Full Journal <ChevronRight size={20} />
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
+                    <button 
+                      className="read-more-btn" 
+                      onClick={() => setIsNewsExpanded(!isNewsExpanded)}
+                      style={{ background: "var(--sky-50)", padding: "0.8rem 1.5rem", borderRadius: "var(--r-full)", border: "1px solid var(--sky-100)" }}
+                    >
+                      {isNewsExpanded ? "Collapse Story" : "Read Full Story"} 
+                      <ChevronRight size={16} style={{ transform: isNewsExpanded ? "rotate(-90deg)" : "rotate(0deg)", transition: "transform 0.4s" }} />
+                    </button>
+                  </div>
+                </motion.div>
               </motion.div>
             </div>
           </div>
@@ -826,12 +970,14 @@ export default function Home() {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-brand">
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: "1rem" }}>
-                <div className="nav-logo-mark">M</div>
-                <div className="nav-logo-text" style={{ color: "var(--gray-900)" }}>Manish Medi<span>Innovation</span></div>
+              <div style={{ display: "flex", alignItems: "center", gap: 15, marginBottom: "1.5rem" }}>
+                <div className="footer-logo-wrap">
+                  <img src="/images/logo.png" alt="Manish Medi" style={{ width: "100%", height: "auto" }} />
+                </div>
+                <div className="nav-logo-text" style={{ color: "var(--gray-900)", fontSize: "1.2rem" }}>Manish Medi<span>Innovation</span></div>
               </div>
               <p className="footer-tagline">
-                Precision-engineered medical devices trusted by clinicians across 45+ countries. ISO 9001:2008 certified manufacturing excellence since 2004.
+                Precision-engineered medical devices trusted by clinicians across 45+ countries. Global excellence in manufacturing since 2004.
               </p>
               <div className="footer-socials">
                 <div className="footer-social">in</div>
