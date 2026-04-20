@@ -799,6 +799,10 @@ export default function Home() {
                   <video 
                     className="showcase-video"
                     controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
                     poster="/images/video-poster.jpg"
                   >
                     <source src="/videos/corporate-showcase.mp4" type="video/mp4" />
