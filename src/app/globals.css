@@ -1477,7 +1477,7 @@ p { font-size: clamp(0.95rem, 1.1vw, 1.05rem); line-height: 1.7; }
     text-align: center !important;
   }
   
-  .about-cards-row, .specialty-grid, .stats-grid-premium, .quality-milestones {
+  .about-cards-row, .quality-milestones {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
