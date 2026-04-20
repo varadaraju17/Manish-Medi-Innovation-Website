@@ -814,6 +814,99 @@ export default function Home() {
               </motion.div>
             </div>
 
+            {/* 3. ELITE PROGRESSIVE ARTICLE (Mr. Nirmal's Story) */}
+            <div className="elite-news-hub" id="full-news">
+              <div className="elite-article-teaser">
+                {/* Teaser Hero */}
+                <div className="teaser-hero-wrap">
+                  <img src="/images/news/nirmal-story.png" alt="Mr. Nirmal - Visionary Leadership" className="teaser-hero-img" />
+                </div>
+
+                {/* Teaser Text */}
+                <div className="teaser-content">
+                  <span className="teaser-pretitle">The Visionary Journey</span>
+                  <h3 className="teaser-h3">
+                    Engineering Confidence <br/> 
+                    for Global Healthcare
+                  </h3>
+                  
+                  <button 
+                    className="btn-elite-expand" 
+                    onClick={() => setIsNewsExpanded(!isNewsExpanded)}
+                  >
+                    {isNewsExpanded ? "Show Less" : "Read Full Story"}
+                    <ChevronRight 
+                      size={20} 
+                      style={{ 
+                        transform: isNewsExpanded ? "rotate(-90deg)" : "rotate(0deg)", 
+                        transition: "transform 0.4s" 
+                      }} 
+                    />
+                  </button>
+                </div>
+
+                {/* Progressive Disclosure Content */}
+                <AnimatePresence>
+                  {isNewsExpanded && (
+                    <motion.div 
+                      className="expanded-story-box"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      style={{ overflow: "hidden" }}
+                    >
+                      <div className="story-grid-elite">
+                        {/* Main Context */}
+                        <div className="story-main-text">
+                          <p className="story-para">
+                            In an extraordinary tale of vision and innovation, Mr Nirmal, the pioneering force behind Manish Medi Innovation, 
+                            has led the company to unparalleled success in the global medical landscape. With over two decades of experience, 
+                            his leadership has not only steered the organization through the intricacies of the medical industry but has also 
+                            established it as a beacon of excellence and ingenuity.
+                          </p>
+                          <p className="story-para">
+                            Under his guidance, Manish Medi has become a symbol of cutting-edge medical solutions, excelling in Urology, 
+                            Gastroenterology, Gynecology, Radiology, and Nephrology. The commitment to precision, accuracy, and hygiene 
+                            has elevated the organization to a position of trust, resonating with patients and healthcare professionals alike.
+                          </p>
+
+                          <div className="story-highlight-quote">
+                            &quot;The &apos;Make in India&apos; tag resonates with international markets, showcasing the prowess of Indian innovation on a global stage.&quot;
+                          </div>
+
+                          <p className="story-para">
+                            What sets Manish Medi apart is not just its local success but its global impact. Operating from a sprawling 50,000 sq.ft. 
+                            facility with four world-class manufacturing units, the organization exports its state-of-the-art medical devices to over 45 countries.
+                          </p>
+                          <p className="story-para">
+                            Certified with ISO 13485, CE, and Indian FDA approvals, Manish Medi stands as a testament to its commitment to quality 
+                            and compliance. The facilities adhere to stringent International GMP standards, ensuring the production of approx. 250,000 units 
+                            per month with the utmost precision.
+                          </p>
+                        </div>
+
+                        {/* Impact Stats Panel */}
+                        <div className="story-stats-panel">
+                          <div className="impact-chip">
+                            <div className="impact-val">250K</div>
+                            <div className="impact-label">Units / Month</div>
+                          </div>
+                          <div className="impact-chip">
+                            <div className="impact-val">45+</div>
+                            <div className="impact-label">Global Markets</div>
+                          </div>
+                          <div className="impact-chip">
+                            <div className="impact-val">20+</div>
+                            <div className="impact-label">Years Excellence</div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
         </div>
       </section>
