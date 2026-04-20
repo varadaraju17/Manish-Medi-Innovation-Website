@@ -210,7 +210,7 @@ export const products = [
       "Urological irrigation",
       "Track guidance procedures"
     ],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 12,
@@ -223,7 +223,7 @@ export const products = [
       "Sizes": "75 mm, 90 mm, 120 mm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Penile-Clamp.jpg"
   },
   {
     "id": 13,
@@ -236,7 +236,7 @@ export const products = [
       "Types": "Economic, Premium"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/TUR-Set.jpg"
   },
   {
     "id": 14,
@@ -251,7 +251,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Cysto-Bridge.jpg"
   },
   {
     "id": 15,
@@ -268,7 +268,7 @@ export const products = [
       "Types": "Single Stem, Double Stem"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/TURP-Set.jpg"
   },
   {
     "id": 16,
@@ -286,7 +286,7 @@ export const products = [
       "Endoscopic coagulation",
       "Tissue cauterization"
     ],
-    "image": ""
+    "image": "/images/products/Bugbee-Electrodes.jpg"
   },
   {
     "id": 17,
@@ -303,7 +303,7 @@ export const products = [
       "Types": "U Shape, V Shape, Ball Electrode, Cold Knife, Half Moon"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-turp-electrodes.jpg"
   },
   {
     "id": 18,
@@ -569,7 +569,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 34,
@@ -587,7 +587,7 @@ export const products = [
       "Length": "30 – 40 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Nephrostomy-Tube.jpg"
   },
   {
     "id": 35,
@@ -624,7 +624,7 @@ export const products = [
       "Length": "22 cm, 30 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 37,
@@ -658,7 +658,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 39,
@@ -676,7 +676,7 @@ export const products = [
       "Length": "25 – 30 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 40,
@@ -694,7 +694,7 @@ export const products = [
       "Length": "25 – 35 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 41,
@@ -711,7 +711,7 @@ export const products = [
       "Sizes": "8 Fr – 18 Fr"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 42,
@@ -728,7 +728,7 @@ export const products = [
       "Sizes": "8 Fr – 18 Fr"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 43,
@@ -770,7 +770,7 @@ export const products = [
       "Length": "25 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Urethral-Stent.jpg"
   },
   {
     "id": 46,
@@ -786,7 +786,7 @@ export const products = [
       "Sizes": "5 Fr – 7 Fr"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Biopsy-Forceps.jpg"
   },
   {
     "id": 47,
@@ -803,7 +803,7 @@ export const products = [
       "Sizes": "3 Fr – 7 Fr"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Grasping-Forcep.jpg"
   },
   {
     "id": 48,
@@ -821,7 +821,7 @@ export const products = [
       "Length": "360 mm, 450 mm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/PCNL-Forceps.jpg"
   },
   {
     "id": 49,
@@ -838,7 +838,7 @@ export const products = [
       "Length": "35 – 62 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Grasping-Forcep.jpg"
   },
   {
     "id": 50,
@@ -855,7 +855,7 @@ export const products = [
       "Length": "35 – 62 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Grasping-Forcep.jpg"
   },
   {
     "id": 51,
@@ -872,7 +872,7 @@ export const products = [
       "Length": "70 – 120 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Stone-Basket-Flat-Wire.jpg"
   },
   {
     "id": 52,
@@ -889,7 +889,7 @@ export const products = [
       "Length": "70 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Stone-Basket-Flat-Wire.jpg"
   },
   {
     "id": 53,
@@ -906,7 +906,7 @@ export const products = [
       "Length": "37 cm, 42 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Perk-Basket.jpg"
   },
   {
     "id": 54,
@@ -923,7 +923,7 @@ export const products = [
       "Length": "70 – 120 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Nitinol-Retrieval-Basket.jpg"
   },
   {
     "id": 55,
@@ -1080,7 +1080,7 @@ export const products = [
       "Length": "12 – 22 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Facial-Dilator-Set.jpg"
   },
   {
     "id": 64,
@@ -1100,7 +1100,7 @@ export const products = [
       "Shaft Size": "7 Fr"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Balloon-Dilator.jpg"
   },
   {
     "id": 65,
@@ -1114,7 +1114,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Tubal-Cannulation-Kit.jpg"
   },
   {
     "id": 66,
@@ -1131,7 +1131,7 @@ export const products = [
       "Length": "22, 30 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Abscess-Drainage-Kit.jpg"
   },
   {
     "id": 67,
@@ -1145,7 +1145,7 @@ export const products = [
       "Length": "22, 30 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Pigtail-Catheter.jpg"
   },
   {
     "id": 68,
@@ -1159,7 +1159,7 @@ export const products = [
       "Length": "22, 30 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Pigtail-Catheter.jpg"
   },
   {
     "id": 69,
@@ -1176,7 +1176,7 @@ export const products = [
       "Length": "120 – 200 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Naso-Jejunal-Tube.jpg"
   },
   {
     "id": 70,
@@ -1191,7 +1191,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 71,
@@ -1206,7 +1206,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 72,
@@ -1223,7 +1223,7 @@ export const products = [
       "Length": "22, 30 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Pigtail-Catheter.jpg"
   },
   {
     "id": 73,
@@ -1257,7 +1257,7 @@ export const products = [
       "Length": "30 – 60 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Abscess-Drainage-Kit.jpg"
   },
   {
     "id": 75,
@@ -1275,7 +1275,7 @@ export const products = [
       "Length": "25 – 35 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Magnum-Biopsy-Instr.jpg"
   },
   {
     "id": 76,
@@ -1290,7 +1290,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/PTBD-Catheter.jpg"
   },
   {
     "id": 77,
@@ -1305,7 +1305,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Biopsy-Gun.jpg"
   },
   {
     "id": 78,
@@ -1320,7 +1320,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Biopsy-Needle.jpg"
   },
   {
     "id": 79,
@@ -1335,7 +1335,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Magnum-Biopsy-Instr.jpg"
   },
   {
     "id": 80,
@@ -1350,7 +1350,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Biliary-Stents-Standard.jpg"
   },
   {
     "id": 81,
@@ -1365,7 +1365,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Biliary-Stents-Standard.jpg"
   },
   {
     "id": 82,
@@ -1380,7 +1380,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Biliary-Stents-Standard.jpg"
   },
   {
     "id": 83,
@@ -1395,7 +1395,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Biliary-Stents-Double-Pigtail.jpg"
   },
   {
     "id": 84,
@@ -1410,7 +1410,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Biliary-Stents-Standard.jpg"
   },
   {
     "id": 85,
@@ -1425,7 +1425,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Biliary-Stents-Standard.jpg"
   },
   {
     "id": 86,
@@ -1440,7 +1440,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Naso-Biliary-Drainage-Catheter.jpg"
   },
   {
     "id": 87,
@@ -1455,7 +1455,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 88,
@@ -1470,7 +1470,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/urology-drainage-group.png"
   },
   {
     "id": 89,
@@ -1603,7 +1603,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Sclerotherapy-Needle.jpg"
   },
   {
     "id": 96,
@@ -1618,7 +1618,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/IUI-Catheter.jpg"
   },
   {
     "id": 97,
@@ -1633,7 +1633,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/SSG-Device.jpg"
   },
   {
     "id": 98,
@@ -1648,7 +1648,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/CVC-Triple-Lumen-Catheter.jpg"
   },
   {
     "id": 99,
@@ -1663,7 +1663,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Femoral-Catheter.jpg"
   },
   {
     "id": 100,
@@ -1682,7 +1682,7 @@ export const products = [
       "Length": "150 cm"
     },
     "applications": [],
-    "image": ""
+    "image": "/images/products/Nephrology-Guide-Wire.jpg"
   },
   {
     "id": 101,
@@ -1697,7 +1697,7 @@ export const products = [
     ],
     "specifications": {},
     "applications": [],
-    "image": ""
+    "image": "/images/products/Hemodialysis-Catheter.jpg"
   },
   {
     "id": 102,
