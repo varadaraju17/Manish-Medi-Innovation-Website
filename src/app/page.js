@@ -383,10 +383,10 @@ export default function Home() {
               <motion.div
                 key={spec.title}
                 className="specialty-card"
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: idx * 0.12 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
                 onClick={() => { setActiveMainTab(spec.mainTab); setActiveSubTab(spec.subTab); document.getElementById("products")?.scrollIntoView({ behavior: "smooth" }); }}
               >
                 <div className="specialty-card-img" style={{ backgroundImage: `url(${spec.image})`, backgroundSize: "cover", backgroundPosition: "center" }} />
@@ -542,7 +542,7 @@ export default function Home() {
       </section>
 
       {/* --- QUALITY STANDARDS --- */}
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginTop: "5rem" }}>
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} style={{ marginTop: "5rem" }}>
             <div className="text-center" style={{ marginBottom: "3rem" }}>
               <div className="section-label section-label-light">Certifications</div>
               <h2 style={{ color: "var(--gray-900)" }}>Quality Standards</h2>
