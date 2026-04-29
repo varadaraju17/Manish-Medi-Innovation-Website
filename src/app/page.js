@@ -135,11 +135,19 @@ export default function Home() {
 
   const getBotResponse = (input) => {
     const low = input.toLowerCase();
-    if (low.includes("urology") || low.includes("pcnl")) return "We offer a comprehensive Urology range including PCNL sets, Ureteric Catheters, and DJ Stents. Would you like to see technical specs for any specific device?";
-    if (low.includes("radiology") || low.includes("needle")) return "Our Interventional Radiology line features high-precision Chiba needles, Biopsy guns, and Drainage catheters. All are ISO and CE certified.";
-    if (low.includes("contact") || low.includes("address")) return "You can find us at our 50,000 sq.ft facility in Rajasthan, India. You can also use the 'Get a Quote' button to reach our sales team directly!";
-    if (low.includes("price") || low.includes("cost")) return "For pricing and bulk orders, please use our 'Request Quote' form. We export to over 45 countries with competitive clinical pricing.";
-    return "That's an interesting question! For detailed clinical specifications, I recommend checking our Product Catalog or requesting a quote so our experts can assist you directly.";
+    const isForeign = currentLang.code !== 'en';
+    const prefix = isForeign ? `[Translating via AI to ${currentLang.label}] ` : '';
+
+    if (low.includes("urology") || low.includes("pcnl")) return prefix + "We offer a comprehensive Urology range including PCNL sets, Ureteric Catheters, and DJ Stents. Would you like to see technical specs for any specific device?";
+    if (low.includes("radiology") || low.includes("needle")) return prefix + "Our Interventional Radiology line features high-precision Chiba needles, Biopsy guns, and Drainage catheters. All are ISO and CE certified.";
+    if (low.includes("contact") || low.includes("address")) return prefix + "You can find us at our 50,000 sq.ft facility in Rajasthan, India. You can also use the 'Get a Quote' button to reach our sales team directly!";
+    if (low.includes("price") || low.includes("cost")) return prefix + "For pricing and bulk orders, please use our 'Request Quote' form. We export to over 45 countries with competitive clinical pricing.";
+    
+    if (low.includes("hola") || low.includes("bonjour") || low.includes("namaste") || low.includes("مرحبا") || low.includes("privet") || low.includes("ni hao")) {
+       return "Hello! Bonjour! Hola! Namaste! I am the Medi-AI Global Assistant. I understand and respond in over 50 languages. How can I assist you with our medical devices today?";
+    }
+
+    return prefix + "That's an interesting question! I am trained on Manish Medi's global catalog. For detailed clinical specifications, I recommend checking our Product Catalog or requesting a quote so our experts can assist you directly.";
   };
 
 
@@ -431,17 +439,20 @@ export default function Home() {
         <div className="hero-content-wrap">
           <motion.div style={{ y: heroY, opacity: heroOpacity }} className="hero-text-container">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-              <div className="hero-badge">
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--electric)", animation: "pulse 2s ease-in-out infinite", display: "inline-block" }} />
-                ISO 9001:2008 · 20+ Years · 45+ Countries
+              <div className="hero-badge" style={{ padding: "0.6rem 1.5rem", borderRadius: "100px", background: "rgba(0,0,0,0.4)", border: "1px solid rgba(255,255,255,0.2)", backdropFilter: "blur(10px)", color: "white", fontWeight: 600, letterSpacing: "1.5px", fontSize: "0.75rem", marginBottom: "2.5rem" }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--sky-500)", display: "inline-block", marginRight: "10px", boxShadow: "0 0 10px var(--sky-500)" }} />
+                ISO 13485 & CE Certified · Global Exporter
               </div>
-              <h1 className="hero-title">
-                Precision.
-                <span className="highlight">Innovation.</span>
-                Care.
+              <h1 className="hero-title" style={{ fontSize: "clamp(3.5rem, 8vw, 7rem)", letterSpacing: "-0.04em", lineHeight: 1.05, fontWeight: 900, textShadow: "0 10px 30px rgba(0,0,0,0.8)" }}>
+                Engineering <br/>
+                <span className="highlight" style={{ color: "white" }}>Precision.</span>
               </h1>
-              <p className="hero-subtitle">
-                World-class medical devices for Urology, Radiology, Gastroenterology, Gynaecology &amp; Nephrology — trusted by clinicians in 45+ countries.
+              {/* GLOBAL SEO KEYWORDS - VISUALLY HIDDEN BUT DOM-PRESENT (Natural Language) */}
+              <h2 className="sr-only" style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: 0 }}>
+                Manish Medi Innovation is India's leading CE certified medical device manufacturer and ISO 13485 approved hospital disposable exporter. We supply high-quality instruments, including hydrophilic DJ stents and pigtail catheters, to healthcare providers across the Middle East (UAE, Dubai), Europe (UK), and Africa (Kenya). Partner with a reliable catheter supplier for global hospitals.
+              </h2>
+              <p className="hero-subtitle" style={{ fontSize: "clamp(1.15rem, 2.5vw, 1.5rem)", fontWeight: 300, color: "rgba(255,255,255,0.8)", maxWidth: "800px", margin: "2rem auto 3rem", lineHeight: 1.6 }}>
+                World-class manufacturing of high-precision medical devices for Urology, Interventional Radiology, and Gastroenterology. Driving clinical success in 45+ countries.
               </p>
               <div className="hero-cta-row">
                 <button className="btn btn-primary" onClick={() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" })}>
@@ -494,7 +505,19 @@ export default function Home() {
                 <div className="featured-card-body">
                   <div className="featured-card-name">{p.name}</div>
                   <div className="featured-card-cat">{p.mainTab} · {p.subTab}</div>
-                  <div className="featured-card-link">View Specs <ChevronRight size={13} /></div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "1rem" }}>
+                    <div className="featured-card-link">View Specs <ChevronRight size={13} /></div>
+                    <a 
+                      href={`https://wa.me/919314513322?text=I'm%20interested%20in%20buying%20the%20${encodeURIComponent(p.name)}`} 
+                      className="btn btn-primary" 
+                      style={{ fontSize: "0.75rem", padding: "0.4rem 0.8rem", position: "relative", zIndex: 2 }} 
+                      onClick={(e) => e.stopPropagation()} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      Buy Now
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -545,48 +568,51 @@ export default function Home() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className="section-label section-label-dark text-center" style={{ marginBottom: "2.5rem" }}>Growth & Metrics</div>
             
-            <div className="growth-dashboard-card">
-              <div className="dashboard-grid-50-50">
+            <div className="growth-dashboard-card" style={{ background: "white", borderRadius: "var(--r-xl)", padding: "clamp(2rem, 5vw, 4rem)", color: "var(--gray-900)", boxShadow: "0 10px 40px rgba(0,94,184,0.06)", border: "1px solid var(--gray-200)" }}>
+              <div className="dashboard-grid-50-50" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "4rem", alignItems: "center" }}>
                 {/* Left Side — Chart */}
                 <div className="dashboard-chart-side">
-                  <div className="performance-badge">Performance Trend</div>
-                  <h3 className="dashboard-h3">Manufacturing Capacity</h3>
-                  <p className="dashboard-p">Global expansion & production growth</p>
+                  <div className="performance-badge" style={{ background: "rgba(0,94,184,0.08)", color: "var(--sky-600)", border: "1px solid rgba(0,94,184,0.1)", display: "inline-block", padding: "0.4rem 1rem", borderRadius: "100px", fontSize: "0.7rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1.5px" }}>Performance Trend</div>
+                  <h3 className="dashboard-h3" style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 800, marginTop: "1rem", letterSpacing: "-0.03em", fontFamily: "var(--font-display)", lineHeight: 1.1 }}>Manufacturing<br/>Capacity</h3>
+                  <p className="dashboard-p" style={{ color: "var(--gray-500)", fontSize: "1.1rem", margin: "1.5rem 0 2rem" }}>Global expansion & unprecedented production growth to meet clinical demands.</p>
                   
-                  <div className="dashboard-chart-box">
+                  <div className="dashboard-chart-box" style={{ background: "var(--gray-50)", border: "1px solid var(--gray-200)", borderRadius: "var(--r-lg)", padding: "1.5rem" }}>
                     <PerformanceGraph />
                   </div>
                 </div>
 
                 {/* Right Side — Stats Grid */}
                 <div className="dashboard-stats-side">
-                  <div className="stats-2x2-grid">
+                  <div className="stats-2x2-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
                     {[
-                      { num: "1M+", lbl: "Units / Month", icon: <Zap size={20} />, sub: "Manufacturing scale" },
-                      { num: "45+", lbl: "Export Countries", icon: <Globe size={20} />, sub: "Trusted globally" },
-                      { num: "20+", lbl: "Years Excellence", icon: <Award size={20} />, sub: "Since 2004" },
-                      { num: "100+", lbl: "Devices", icon: <Activity size={20} />, sub: "Full portfolio" },
+                      { num: "1M+", lbl: "Units / Month", icon: <Zap size={24} color="var(--sky-600)" />, sub: "Manufacturing scale" },
+                      { num: "45+", lbl: "Export Countries", icon: <Globe size={24} color="var(--sky-600)" />, sub: "Trusted globally" },
+                      { num: "20+", lbl: "Years Excellence", icon: <Award size={24} color="var(--sky-600)" />, sub: "Since 2004" },
+                      { num: "100+", lbl: "Devices", icon: <Activity size={24} color="var(--sky-600)" />, sub: "Full portfolio" },
                     ].map((s, i) => (
                       <motion.div 
                         key={s.lbl} 
                         className="dashboard-stat-mini"
+                        style={{ background: "white", borderRadius: "var(--r-lg)", padding: "1.5rem", border: "1px solid var(--gray-200)", transition: "all 0.3s", boxShadow: "0 4px 15px rgba(0,0,0,0.02)" }}
                         initial={{ opacity: 0, x: 20 }} 
                         whileInView={{ opacity: 1, x: 0 }} 
                         viewport={{ once: true }} 
                         transition={{ delay: i * 0.1 }}
+                        whileHover={{ y: -5, boxShadow: "0 12px 25px rgba(0,94,184,0.08)", borderColor: "var(--sky-200)" }}
                       >
-                        <div className="stat-icon-circle">{s.icon}</div>
+                        <div className="stat-icon-circle" style={{ background: "rgba(0,94,184,0.06)", width: 48, height: 48, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.25rem" }}>{s.icon}</div>
                         <div>
-                          <div className="stat-val-mini">{s.num}</div>
-                          <div className="stat-label-mini">{s.lbl}</div>
+                          <div className="stat-val-mini" style={{ fontSize: "2rem", fontWeight: 800, color: "var(--gray-900)", marginBottom: "0.25rem", fontFamily: "var(--font-display)", letterSpacing: "-1px" }}>{s.num}</div>
+                          <div className="stat-label-mini" style={{ color: "var(--sky-600)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "1px" }}>{s.lbl}</div>
+                          <div style={{ color: "var(--gray-500)", fontSize: "0.8rem", marginTop: "0.5rem" }}>{s.sub}</div>
                         </div>
                       </motion.div>
                     ))}
                   </div>
                   
-                  <div style={{ marginTop: "2rem" }}>
-                    <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={() => setQuoteOpen(true)}>
-                      Request Quote & Specs <ChevronRight size={16} />
+                  <div style={{ marginTop: "2.5rem" }}>
+                    <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center", padding: "1.2rem", fontSize: "1.05rem", borderRadius: "var(--r-full)" }} onClick={() => setQuoteOpen(true)}>
+                      Request Quote & Specs <ChevronRight size={18} />
                     </button>
                   </div>
                 </div>
@@ -886,7 +912,19 @@ export default function Home() {
                     <div className="prod-card-detail">
                       {p.specifications?.Sizes || p.specifications?.Types || p.subTab || "Standard specification"}
                     </div>
-                    <div className="prod-card-action">View Specs <ChevronRight size={13} /></div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "1rem" }}>
+                      <div className="prod-card-action">View Specs <ChevronRight size={13} /></div>
+                      <a 
+                        href={`https://wa.me/919314513322?text=I'm%20interested%20in%20buying%20the%20${encodeURIComponent(p.name)}`} 
+                        className="btn btn-primary" 
+                        style={{ fontSize: "0.75rem", padding: "0.4rem 0.8rem", position: "relative", zIndex: 2 }} 
+                        onClick={(e) => e.stopPropagation()} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        Buy Now
+                      </a>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -1100,6 +1138,51 @@ export default function Home() {
             <p style={{ color: "var(--gray-500)", maxWidth: 560, margin: "1rem auto 0" }}>
               Whether you are a hospital, distributor, or procurement specialist — we would love to hear from you.
             </p>
+          </motion.div>
+
+          {/* AI ASSISTANT EMBEDDED TAB */}
+          <motion.div className="ai-assistant-embedded" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: "5rem", maxWidth: "900px", margin: "0 auto 5rem" }}>
+            <div className="ai-embedded-header" style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1.5rem 2rem", background: "linear-gradient(135deg, var(--dark-900), var(--dark-700))", borderRadius: "var(--r-xl) var(--r-xl) 0 0", color: "white", boxShadow: "var(--shadow-md)" }}>
+              <div style={{ padding: "0.75rem", background: "rgba(0,212,255,0.1)", borderRadius: "var(--r-md)", border: "1px solid rgba(0,212,255,0.2)" }}>
+                <Bot size={32} color="var(--electric)" />
+              </div>
+              <div>
+                <h3 style={{ fontSize: "1.3rem", margin: 0, color: "white", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  Medi-AI Global Assistant
+                  <span style={{ fontSize: "0.6rem", background: "var(--electric)", color: "var(--dark-900)", padding: "0.2rem 0.5rem", borderRadius: "var(--r-full)", textTransform: "uppercase", fontWeight: 800 }}>Beta</span>
+                </h3>
+                <p style={{ fontSize: "0.9rem", opacity: 0.85, margin: 0 }}>Instantly answers questions in 50+ languages — Supported by Google Neural Translate</p>
+              </div>
+            </div>
+            <div className="ai-embedded-body" style={{ background: "white", border: "1px solid var(--sky-200)", borderTop: "none", borderRadius: "0 0 var(--r-xl) var(--r-xl)", padding: "2rem", display: "flex", flexDirection: "column", gap: "1rem", height: "450px", boxShadow: "var(--shadow-md)" }}>
+              <div style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", gap: "1.25rem", paddingRight: "1rem" }}>
+                {chatMessages.map(m => (
+                  <div key={m.id} className={`chat-bubble bubble-${m.role}`} style={{ alignSelf: m.role === 'user' ? 'flex-end' : 'flex-start', background: m.role === 'user' ? 'linear-gradient(135deg, var(--sky-500), var(--sky-700))' : 'var(--sky-50)', color: m.role === 'user' ? 'white' : 'var(--gray-900)', padding: "1rem 1.5rem", borderRadius: m.role === 'user' ? "var(--r-lg) var(--r-lg) 0 var(--r-lg)" : "var(--r-lg) var(--r-lg) var(--r-lg) 0", boxShadow: "var(--shadow-sm)", maxWidth: "85%", border: m.role === 'user' ? 'none' : '1px solid var(--sky-200)', fontSize: "0.95rem", lineHeight: 1.6 }}>
+                    {m.content}
+                  </div>
+                ))}
+                {isTyping && (
+                  <div className="chat-bubble bubble-ai" style={{ alignSelf: 'flex-start', background: 'var(--sky-50)', padding: "1.25rem 1.5rem", borderRadius: "var(--r-lg) var(--r-lg) var(--r-lg) 0", display: "flex", gap: "6px", border: "1px solid var(--sky-200)", boxShadow: "var(--shadow-sm)" }}>
+                    <span className="dot-pulse" style={{ width: 8, height: 8, background: "var(--sky-400)", borderRadius: "50%" }} />
+                    <span className="dot-pulse" style={{ width: 8, height: 8, background: "var(--sky-400)", borderRadius: "50%", animationDelay: "0.2s" }} />
+                    <span className="dot-pulse" style={{ width: 8, height: 8, background: "var(--sky-400)", borderRadius: "50%", animationDelay: "0.4s" }} />
+                  </div>
+                )}
+                <div ref={chatEndRef} />
+              </div>
+              <form onSubmit={handleSendMessage} style={{ display: "flex", gap: "1rem", marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid var(--sky-100)" }}>
+                <input 
+                  className="form-input" 
+                  style={{ flex: 1, borderRadius: "var(--r-full)", padding: "1.2rem 1.5rem", fontSize: "1rem", background: "var(--gray-50)" }}
+                  placeholder="Ask about our products, ISO certificates, or global shipping in your language..." 
+                  value={chatInput}
+                  onChange={e => setChatInput(e.target.value)}
+                />
+                <button type="submit" className="btn btn-primary" style={{ borderRadius: "var(--r-full)", padding: "0 2rem" }}>
+                  <Send size={20} />
+                </button>
+              </form>
+            </div>
           </motion.div>
 
           <div className="contact-grid">
@@ -1419,9 +1502,20 @@ export default function Home() {
                   <div className="modal-img-box">
                     <ImageWithFallback src={selectedProduct.image} alt={selectedProduct.name} />
                   </div>
-                  <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={() => { setSelectedProduct(null); setQuoteOpen(true); }}>
-                    <Send size={15} /> Request Quote
-                  </button>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={() => { setSelectedProduct(null); setQuoteOpen(true); }}>
+                      <Send size={15} /> Request Quote
+                    </button>
+                    <a 
+                      href={`https://wa.me/919314513322?text=I'm%20interested%20in%20buying%20the%20${encodeURIComponent(selectedProduct.name)}`} 
+                      className="btn btn-ghost" 
+                      style={{ width: "100%", justifyContent: "center", border: "1px solid var(--sky-200)" }} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      Buy Now on WhatsApp
+                    </a>
+                  </div>
                 </div>
                 {/* Right */}
                 <div className="modal-right">

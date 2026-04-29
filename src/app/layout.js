@@ -12,9 +12,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Manish Medi Innovation | Precision Medical Devices",
-  description: "World-class manufacturer of precision medical devices across Urology, Interventional Radiology, Gastroenterology, Gynaecology & Nephrology. ISO 9001:2008 Certified. Exporting to 45+ countries. 1M+ units per month.",
-  keywords: "medical devices, urology, interventional radiology, gastroenterology, nephrology, medical instruments, ISO certified, catheters, guide wires, biopsy",
+  title: "Manish Medi Innovation | Best Medical Device Manufacturer India",
+  description: "Top CE certified medical products supplier & ISO 13485 medical device company in India. Exporting hydrophilic DJ stents, catheters, & hospital disposables to 45+ countries. Affordable & reliable.",
+  keywords: "Medical device manufacturer India, CE certified medical products supplier, Hospital disposable exporter India, ISO 13485 medical device company, Hydrophilic DJ stent manufacturer, Pigtail catheter exporter, Sclerotherapy needle supplier, Malecot catheter manufacturer, PCN catheter exporter, What is DJ stent and its uses, Types of medical catheters, Import regulations for medical devices, Best hydrophilic DJ stent manufacturer in India, Affordable CE-certified medical disposables, Reliable catheter supplier for hospitals, medical devices, urology, interventional radiology, gastroenterology, nephrology",
 };
 
 import Script from "next/script";
